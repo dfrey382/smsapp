@@ -18,3 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function(){
+
+	Route::resource('contact','ContactTemplateController');
+	Route::resource('message-template','MessageTemplateController');
+	Route::resource('sms','SmsController');
+});
