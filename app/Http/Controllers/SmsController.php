@@ -53,10 +53,17 @@ class SmsController extends Controller
 
         if(isset($data['select'])){
 
-            $response = $this->sendGroupMessage($request);
+            if(!$response = $this->sendGroupMessage($request)){
+
+                flash('The africastalking credentials are not correct')->error()->important();
+
+                return redirect()->back();
+
+            }
 
         } else{
             //validate phone
+
 
             if(!$this->validatePhone($request->recepient)){
 
@@ -65,6 +72,13 @@ class SmsController extends Controller
                 return redirect()->back()->withInput();
             }
           $response = SMS::sendSMS($request->recepient , $request->message);
+
+          if($response == null){
+
+            flash('The africastalking credentials are not correct')->error()->important();
+
+            return redirect()->back();
+          }
             foreach($response as $result){
                  MessageLog::create([
                     'contact' => $request->recepient,
@@ -77,7 +91,6 @@ class SmsController extends Controller
 
         }
 
-        flash('Sms sent successfully ')->success();
 
         return redirect()->route('sms.index');
     }
@@ -141,6 +154,11 @@ class SmsController extends Controller
         $message = MessageTemplate::where('id',$request->message)->first();
 
         $response = SMS::sendSMS($contact->phone , $message->message);
+
+          if($response == null){
+
+            return false;
+          }
 
           foreach($response as $result){
 
