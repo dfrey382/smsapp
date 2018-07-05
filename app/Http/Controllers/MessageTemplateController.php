@@ -41,7 +41,10 @@ class MessageTemplateController extends Controller
                 'name' => 'required|unique:message_templates',
                 'message' => 'required'
             ]);
+
         $templates = MessageTemplate::create($data);
+
+        flash('New Message Template created successfully')->success();
 
         return redirect()->route('message-template.index');
     }
@@ -99,6 +102,8 @@ class MessageTemplateController extends Controller
     {
         MessageTemplate::where('id',$id)->delete();
 
-        return view('messagetemplate.index');
+        flash('Message Template deleted successfully')->success();
+
+        return redirect()->route('message-template.index');
     }
 }

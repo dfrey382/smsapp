@@ -34,7 +34,13 @@
                                     <td>{{ $contact->name }}</td>
                                     <td>{{ $contact->phone }}</td>
 
-                                    <td> <a href="{{ url('delete')}}" class="btn btn-danger btn-sm"> delete</a></td>
+                                    <td>
+                                      <form method="POST" action="{{ route('contact.destroy',['id'=>$contact->id])}}"> 
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-sm btn-danger">delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
 
                             @endforeach

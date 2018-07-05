@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -16,13 +15,18 @@
                             <th>#</th>
                             <th>Recepient</th>
                             <th>Message</th>
+                            <th>Message ID</th>
+                            <th>Status</th>
                         </thead>
                         <tbody>
+                            @php($count =1)
                             @foreach($messages as $message)
                                 <tr>
                                     <td>{{ $count ++ }}</td>
-                                    <td>{{ $message->recepient}}</td>
+                                    <td>{{ $message->contact}}</td>
                                     <td>{{ $message->message }}</td>
+                                    <td>{{ $message->message_id }}</td>
+                                    <td>{{ $message->status }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -46,7 +46,16 @@ class ContactTemplateController extends Controller
 
          $data['type'] =isset($data['type'])? !ContactTemplate::GROUP :ContactTemplate::GROUP;
 
+         if(!$this->validatePhone($data['phone'])){
+
+        flash('Contact could not be  created, You have an invalid phone number in your list ')->warning();
+
+            return redirect()->back()->withInput();
+         } 
+
          ContactTemplate::create($data);
+         
+        flash('Contact created successfully ')->success();
 
          return redirect()->route('contact.index');
 
@@ -108,6 +117,35 @@ class ContactTemplateController extends Controller
         
         ContactTemplate::find($id)->delete();
 
+        flash('Contact deleted successfully ')->success();
+
         return redirect()->route('contact.index');
+    }
+
+
+
+    /**
+    * validate the contact phone number
+    *@param string $contact
+    *@return boolean
+    */
+
+    public  function validatePhone($contact)
+    {
+        $contact = explode(',', $contact);
+
+        if(end($contact) == ""){
+            array_pop($contact);
+        }
+
+        foreach($contact as $phone){
+            if(!preg_match("/(0|\+?254)7([0-3|7])(\d){7}/",$phone)){
+
+                return false;
+
+                }
+        }
+
+        return true;
     }
 }

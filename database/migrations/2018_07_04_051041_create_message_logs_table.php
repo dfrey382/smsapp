@@ -15,6 +15,11 @@ class CreateMessageLogsTable extends Migration
     {
         Schema::create('message_logs', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name')->nullable();
+            $table->longText('contact');
+            $table->longText('message');
+            $table->string('message_id');
+            $table->string('status');
             $table->timestamps();
         });
     }

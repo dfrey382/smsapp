@@ -24,4 +24,6 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::resource('contact','ContactTemplateController');
 	Route::resource('message-template','MessageTemplateController');
 	Route::resource('sms','SmsController');
+
+	Route::get('export','SmsController@exportSMS');
 });

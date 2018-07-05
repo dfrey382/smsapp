@@ -17,7 +17,7 @@
                            <div class="col-md-10 col-md-offset-1">
                                <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" name="name" class="form-control" required="true">
+                                    <input type="text" name="name" class="form-control" value="{{ old('name')}}" required="true">
                                     <small id="passwordHelpInline" class="text-muted">
                                       individual or group name.
                                     </small>
@@ -28,9 +28,9 @@
                            <div class="col-md-10 col-md-offset-1">
                                <div class="form-group">
                                     <label for="name">conatct</label>
-                                    <textarea name="phone" class="form-control" required="true"></textarea>
+                                    <textarea name="phone" class="form-control" required="true" rows="4">{{old('phone')}}</textarea>
                                     <small id="passwordHelpInline" class="text-muted">
-                                      add multiple phone number, being comma separated
+                                      add multiple phone number, being comma separated(+254712...,+254709..)
                                     </small>
                                 </div>
                            </div>

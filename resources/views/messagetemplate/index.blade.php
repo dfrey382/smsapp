@@ -32,7 +32,14 @@
                                     <td>{{ $template->name }}</td>
                                     <td>{{ $template->message }}</td>
 
-                                    <td> <a href="{{ url('delete')}}" class="btn btn-danger btn-sm"> delete</a></td>
+                                    <td> 
+                                    <td>
+                                        <form method="POST" action="{{ route('message-template.destroy',['id'=>$template->id])}}"> 
+                                        @csrf
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-sm btn-danger">delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
 
                             @endforeach

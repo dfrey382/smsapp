@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\MessageLog;
 use App\ContactTemplate;
 use App\MessageTemplate;
+use App\AFT\SMS;
+use App\Http\Controllers\ContactTemplateController;
+use Excel;
+
 class SmsController extends Controller
 {
     /**
@@ -47,16 +51,35 @@ class SmsController extends Controller
                 'select' => 'nullable'
              ]);
 
-        if($data['select']){
-            $this->sendGroupMessage($request);
+        if(isset($data['select'])){
+
+            $response = $this->sendGroupMessage($request);
+
         } else{
-            $this->sendInvidualSMS($request);
+            //validate phone
+
+            if(!$this->validatePhone($request->recepient)){
+
+                 flash('You have an invalid Phone number, required number format is +2547.... ')->warning();
+
+                return redirect()->back()->withInput();
+            }
+          $response = SMS::sendSMS($request->recepient , $request->message);
+            foreach($response as $result){
+                 MessageLog::create([
+                    'contact' => $request->recepient,
+                    'message' => $request->message,
+                    'message_id' => $result->messageId,
+                    'status' => $result->status
+                 ]);
+            }
+
+
         }
 
-        dd($data);
-        $data = MessageLog::create($data);
+        flash('Sms sent successfully ')->success();
 
-        return view('sms.index',['messages' => $messages]);
+        return redirect()->route('sms.index');
     }
 
     /**
@@ -104,15 +127,47 @@ class SmsController extends Controller
         //
     }
 
-    public function dowload()
+    public function exportSMS()
     {
-        dd('download here');
+         
+       return Excel::download(new MessageLog, 'smslog.xlsx');
+
     }
 
 
     public function sendGroupMessage($request)
     {
+        $contact = ContactTemplate::where('id',$request->recepient)->first();
+        $message = MessageTemplate::where('id',$request->message)->first();
 
-        return;
+        $response = SMS::sendSMS($contact->phone , $message->message);
+
+          foreach($response as $result){
+
+                MessageLog::create([
+                    'name' => $contact->name,
+                    'contact' => $result->number,
+                    'message' => $message->message,
+                    'message_id' => $result->messageId,
+                    'status' => $result->status
+                       ]);
+             }
+
+        return $response;
+    }
+
+    public  function validatePhone($contact)
+    {
+        $contact = explode(',', $contact);
+
+        foreach($contact as $phone){
+            if(!preg_match("/(0|\+?254)7([0-3|7])(\d){7}/",$phone)){
+
+                return false;
+
+                }
+        }
+
+        return true;
     }
 }

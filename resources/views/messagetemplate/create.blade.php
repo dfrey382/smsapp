@@ -27,7 +27,7 @@
                        <div class="row">
                            <div class="col-md-10 col-md-offset-1">
                                <div class="form-group">
-                                    <label for="name">conatct</label>
+                                    <label for="name">Message Body</label>
                                     <textarea name="message" class="form-control" required="true"></textarea>
                                     <small id="passwordHelpInline" class="text-muted">
                                      message body
