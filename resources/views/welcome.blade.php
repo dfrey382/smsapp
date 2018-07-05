@@ -46,7 +46,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 54px;
             }
 
             .links > a {
@@ -61,8 +61,8 @@
 
             .m-b-md {
                 margin-bottom: 30px;
-            }
-        </style>
+        }
+    </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -72,22 +72,13 @@
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    AFT API INTEGRATION
                 </div>
             </div>
         </div>

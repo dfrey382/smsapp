@@ -4,9 +4,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">sent Messages 
-                    
-                    <a href="{{ url('export') }}" class="btn btn-success btn-sm"> export </a>
+                <div class="card-header ">Sent Messages 
+                    <a href="{{ url('export') }}" class="btn btn-info btn-sm"> export </a>
                 </div>
 
                 <div class="card-body">
@@ -37,9 +36,9 @@
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="panel panel-info">
-                     <div class="panel-heading">  Send from template </div>
-                     <div class="panel-body">
+                    <div class="card">
+                     <div class="card-header">  select from templates </div>
+                     <div class="card-body">
                          <form method="POST" action="{{ url('sms') }}">
                             @csrf
                             <input type="hidden" name="select" value="1">
@@ -56,7 +55,7 @@
                                      </select>
                                  </div>
                              </div>
-                             <div class="row">
+                             <div class="row form-group">
                                  <div class="col-md-10 col-md-offset-1">
                                      <label>Select  Template</label>
                                      <select class="form-control" name="message">
@@ -81,8 +80,12 @@
                     </div>
 
             </div>  
-                </div>
                 <div class="col-md-12">
+                    <div class="card">
+                    <div class="card-header">
+                        Send Custom sms
+                    </div>
+                    <div class="card-body">
                     <form method="POST" action="{{ url('sms') }}">
                         @csrf
                         <div class="row">
@@ -109,6 +112,7 @@
                             </div>
                         </div>
                     </form>
+                </div>
                 </div>
             </div>
 

@@ -20,7 +20,7 @@
                     <table class="table table-striped datatables">
                         <thead>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Template Name</th>
                             <th>Message Body</th>
                             <th>Action</th>
                         </thead>
@@ -31,8 +31,6 @@
                                     <td>{{ $count ++ }}</td>
                                     <td>{{ $template->name }}</td>
                                     <td>{{ $template->message }}</td>
-
-                                    <td> 
                                     <td>
                                         <form method="POST" action="{{ route('message-template.destroy',['id'=>$template->id])}}"> 
                                         @csrf
