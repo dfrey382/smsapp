@@ -16,7 +16,13 @@ class SMS extends AfricasTalkingGateway
 		$apiKey = \Config::get('aft.apikey');
 		$environment = \Config::get('aft.environment');
 		$username = $environment=="sandbox"?'sandbox':\Config::get('aft.username');
-		self::$gateway =  new AfricasTalkingGateway($username, $apiKey, 'sandbox');
+
+		if($username == 'sandbox'){
+			self::$gateway =  new AfricasTalkingGateway($username, $apiKey, 'sandbox');
+		}else{
+
+			self::$gateway =  new AfricasTalkingGateway($username, $apiKey);
+		}
 	}
 
 
@@ -32,6 +38,8 @@ class SMS extends AfricasTalkingGateway
 			catch ( AfricasTalkingGatewayException $e )
 			{
 			  echo "Encountered an error while sending: ".$e->getMessage();
+
+
 			}
 
 	}

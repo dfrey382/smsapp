@@ -90,6 +90,7 @@ class SmsController extends Controller
 
 
         }
+        flash('Message sent successfully')->success();
 
 
         return redirect()->route('sms.index');

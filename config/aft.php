@@ -19,5 +19,5 @@ return [
 	/production ,sandbox
 	*/
 	
-	'environment' => env('AFT_ENVIRONMENT',''),
+	'environment' => env('AFT_ENVIRONMENT','production'),
 ];
